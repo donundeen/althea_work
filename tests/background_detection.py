@@ -12,6 +12,7 @@ noiseSigma = 0
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
 camera.resolution = (640, 480)
+#camera.resolution = (64, 64)
 camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(640, 480))
  
@@ -27,10 +28,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     image = frame.array
     fgmask = fgbg.apply(image)
 
+    fgmask_crop = fgmask[0:480 , 80:560]
 
+    small = cv2.resize(fgmask_crop, (0,0), fx=0.133, fy=0.133) 
 
-
-    cv2.imshow('frame',fgmask)
+    cv2.imshow('MOG',small)
     # show the frame
     #cv2.imshow("Frame2", image)
     key = cv2.waitKey(1) & 0xFF
@@ -44,5 +46,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
 
-rawCapture.release()
+#camera.release()
+#rawCapture.release()
 cv2.destroyAllWindows()
