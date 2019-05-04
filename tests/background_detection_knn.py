@@ -4,10 +4,9 @@ import time
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 
-history_length = 800 #200
-nmixtures = 10 #5
-backgroundRatio = 0.3 #0.7
-noiseSigma = 0
+history_length = 500 #200
+dist2threshold = 200.0
+detectShadows = True
 
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
@@ -19,7 +18,7 @@ rawCapture = PiRGBArray(camera, size=(640, 480))
 # allow the camera to warmup
 time.sleep(0.1)
 
-fgbg = cv2.bgsegm.createBackgroundSubtractorMOG(history_length, nmixtures, backgroundRatio, noiseSigma)
+fgbg = cv2.createBackgroundSubtractorKNN(history_length, dist2threshold, detectShadows)
 
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
@@ -33,7 +32,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     small = cv2.resize(fgmask_crop, (0,0), fx=0.133, fy=0.133) 
 
-    cv2.imshow('MOG',fgmask_crop)
+    cv2.imshow('KNN',fgmask_crop)
     # show the frame
     #cv2.imshow("Frame2", image)
     key = cv2.waitKey(1) & 0xFF

@@ -4,7 +4,7 @@ import time
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 
-history_length = 800 #200
+history_length = 400 #200
 nmixtures = 10 #5
 backgroundRatio = 0.3 #0.7
 noiseSigma = 0
@@ -21,13 +21,19 @@ time.sleep(0.1)
 
 fgbg = cv2.bgsegm.createBackgroundSubtractorMOG(history_length, nmixtures, backgroundRatio, noiseSigma)
 
+first = True
+firstimage = False
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
-    fgmask = fgbg.apply(image)
-    fgmask = np.fliplr(fgmask)
+
+    if first:
+        first = False
+        firstimage = image
+
+    fgmask = image - firstimage
 
     fgmask_crop = fgmask[0:480 , 80:560]
 

@@ -19,13 +19,15 @@ rawCapture = PiRGBArray(camera, size=(640, 480))
 # allow the camera to warmup
 time.sleep(0.1)
 
-fgbg = cv2.bgsegm.createBackgroundSubtractorMOG(history_length, nmixtures, backgroundRatio, noiseSigma)
+fgbg = cv2.createBackgroundSubtractorMOG2(history=800, varThreshold=4, detectShadows=False)
 
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
+
+
     fgmask = fgbg.apply(image)
     fgmask = np.fliplr(fgmask)
 
@@ -33,7 +35,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     small = cv2.resize(fgmask_crop, (0,0), fx=0.133, fy=0.133) 
 
-    cv2.imshow('MOG',fgmask_crop)
+    cv2.imshow('MOG2',fgmask_crop)
     # show the frame
     #cv2.imshow("Frame2", image)
     key = cv2.waitKey(1) & 0xFF

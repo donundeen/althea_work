@@ -16,10 +16,10 @@ camera.resolution = (640, 480)
 camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(640, 480))
  
-# allow the camera to warmup
+# allow the camera to warmupq
 time.sleep(0.1)
 
-fgbg = cv2.bgsegm.createBackgroundSubtractorMOG(history_length, nmixtures, backgroundRatio, noiseSigma)
+fgbg = cv2.bgsegm.createBackgroundSubtractorMOG(history = history_length, nmixtures = nmixtures, backgroundRatio = backgroundRatio, noiseSigma = noiseSigma)
 
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
