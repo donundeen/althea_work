@@ -1,0 +1,10 @@
+64x64 Led Matrix Panel https://www.adafruit.com/product/3649
+HAT https://www.adafruit.com/product/2345
+Driving the Matrix (scroll down to see Matrix library) https://learn.adafruit.com/adafruit-rgb-matrix-plus-real-time-clock-hat-for-raspberry-pi/driving-matrices
+http://effbot.org/imagingbook/imagedraw.htm
+
+background detection: https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_video/py_bg_subtraction/py_bg_subtraction.html#py-background-subtraction
+
+sample code fro writing to matrix
+https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/bindings/python/samples/image-draw.py
+
