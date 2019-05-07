@@ -8,3 +8,7 @@ background detection: https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_video
 sample code fro writing to matrix
 https://github.com/hzeller/rpi-rgb-led-matrix/blob/master/bindings/python/samples/image-draw.py
 
+bgslibrary:
+https://github.com/andrewssobral/bgslibrary
+
+
