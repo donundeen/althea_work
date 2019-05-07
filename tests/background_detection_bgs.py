@@ -10,6 +10,17 @@ nmixtures = 5 #5
 backgroundRatio = 0.3    #0.7
 noiseSigma = 0
 
+#TODO
+# buildin variables for cropping the source image to a square before processing,
+# then converting to 64x64
+# crop by x1,y1: width region
+# determine width/height
+# then scaling ratio to get to 64x64
+
+
+
+#integrate LED Matrix
+
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
 camera.resolution = (640, 480)
@@ -39,6 +50,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
     image = frame.array
+
+    #crop square in image:
+    image = image[60:420 , 90:550]
+    
     fgmask = algorithm.apply(image)
     fgmask = np.fliplr(fgmask)
 
@@ -74,8 +89,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
     
 
-    fgmask_crop = fgmask[0:480 , 80:560]
-
+    #fgmask_crop = fgmask[0:480 , 80:560]
+    fgmask_crop = fgmask
+    
     small = cv2.resize(fgmask_crop, (0,0), fx=0.133, fy=0.133) 
 
     cv2.imshow('MOG',fgmask_crop)
