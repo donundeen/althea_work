@@ -18,11 +18,13 @@ camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(640, 480))
 
 #better ones
+algorithm = bgs.AdaptiveSelectiveBackgroundLearning()
+#algorithm.threshold = 3
+#   alphaLearn(0.05), alphaDetection(0.05), learningFrames(-1), counter(0), minVal(0.0), maxVal(1.0),  threshold(15)
 #algorithm = bgs.AdaptiveBackgroundLearning()
 #algorithm = bgs.FrameDifference()
 #algorithm = bgs.StaticFrameDifference()
 
-#algorithm = bgs.AdaptiveSelectiveBackgroundLearning()
 #algorithm = bgs.LOBSTER()
 #algorithm = bgs.DPEigenbackground()
 
